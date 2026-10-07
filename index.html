@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LWG T2T Environment Builder Hub | Fall 2026</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter and Newsreader for warm, academic-pedagogy typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Newsreader', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fdf8f4',
+              100: '#f9eee4',
+              200: '#f2dcbf',
+              300: '#e7c293',
+              600: '#b46b2b',
+              700: '#945120',
+              800: '#7a421e',
+              900: '#64381c',
+            },
+            slateCustom: {
+              850: '#151d2e',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Smooth transitions and scroll behavior */
+    html { scroll-behavior: smooth; }
+    .badge-deprecated {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .badge-active {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+  </style>
+</head>
+<body class="bg-[#faf8f5] text-stone-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-200">
+
+  <!-- Top Announcement Bar -->
+  <aside class="bg-stone-900 text-stone-300 text-xs px-4 py-2 border-b border-stone-800 flex flex-wrap items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="font-medium text-stone-100">Fall 2026 Iteration</span>
+      <span class="text-stone-500">|</span>
+      <span>T2T Planning & Environment Architecture Team</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-stone-400">Git Repo Branch: <code class="text-amber-300 font-mono">main</code></span>
+      <a href="parallel-recipes.html" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-brand-700/60 hover:bg-brand-700 text-amber-200 text-xs font-semibold transition">
+        <span>Parallel Recipes (Oct 13)</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Navigation -->
+  <header class="sticky top-0 z-40 bg-[#faf8f5]/95 backdrop-blur-md border-b border-stone-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-stone-900 text-brand-300 flex items-center justify-center font-bold text-lg shadow-sm">
+          <span>T2T</span>
+        </div>
+        <div>
+          <h1 class="text-sm font-semibold tracking-tight text-stone-900 leading-none">LWG Pedagogy & Onboarding</h1>
+          <p class="text-xs text-stone-500">Environment Building Team Hub</p>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+        <a href="#ethos" class="hover:text-stone-900 transition">Our Ethos</a>
+        <a href="#lessons" class="hover:text-stone-900 transition">Curriculum Index</a>
+        <a href="#dispatch" class="hover:text-stone-900 transition">Harini vs Elim Protocol</a>
+        <a href="#guardrails" class="hover:text-stone-900 transition">What We Retired</a>
+        <a href="#repo-tree" class="hover:text-stone-900 transition">Repo Files</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button onclick="toggleQuickSearchModal(true)" class="p-2 text-stone-500 hover:text-stone-900 rounded-lg hover:bg-stone-100 transition" title="Search Lessons">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <a href="parallel-recipes.html" class="hidden sm:inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg bg-stone-900 text-stone-100 hover:bg-stone-800 shadow-sm transition">
+          <span>Oct 13 Parallel Recipes</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section id="ethos" class="relative overflow-hidden pt-12 pb-16 border-b border-stone-200 bg-gradient-to-b from-[#f5efe6]/60 to-[#faf8f5]">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100/80 border border-brand-200 text-brand-800 text-xs font-medium mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+          Environment Architecture &middot; Not Top-Down Teaching
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif text-stone-950 tracking-tight leading-tight">
+          "You are not here to pair with a trainee or 'help' someone. You are here to <span class="italic text-brand-700 underline decoration-brand-300 underline-offset-4">build the conditions</span> where everyone can do their best work."
+        </h2>
+
+        <p class="mt-6 text-base sm:text-lg text-stone-700 leading-relaxed max-w-3xl">
+          When a kitchen is hard to learn in, the problem is usually the room: the layout, the pace, the myth of one right way. In the Fall 2026 iteration, we deconstruct the single-cook paradigm into parallel, multisensorial reference stations.
+        </p>
+
+        <!-- The One Rule Callout -->
+        <div class="mt-8 p-6 rounded-2xl bg-amber-50/90 border border-amber-200/80 shadow-sm">
+          <div class="flex items-start gap-4">
+            <div class="p-2.5 rounded-xl bg-amber-100 text-amber-800">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <div>
+              <div class="text-xs uppercase font-bold tracking-wider text-amber-800">The Primary Covenant</div>
+              <h3 class="text-lg font-semibold text-stone-900 mt-0.5">The One Rule of the Kitchen</h3>
+              <p class="mt-1 text-sm text-stone-700 leading-relaxed">
+                <span class="font-semibold text-stone-900">"The discovery of a new skill is one of the greatest joys and our primary goal in this environment. Be careful to protect that experience for others."</span> Never snatch the tool; never rush an epiphany.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Freedoms & Responsibilities Cards -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-5 rounded-xl bg-white border border-stone-200/90 shadow-sm hover:border-brand-300 transition">
+            <div class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-700 font-semibold mb-3">1</div>
+            <h4 class="font-semibold text-stone-900 text-sm">To Ourselves & Our Learning</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              We lean into contrasting cases, accept trial-as-learning, and practice the 3-breaths principle when activation climbs.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-white border border-stone-200/90 shadow-sm hover:border-brand-300 transition">
+            <div class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-700 font-semibold mb-3">2</div>
+            <h4 class="font-semibold text-stone-900 text-sm">To Others & Their Learning</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Protect discovery. Downward-arrow instead of assuming. Celebrate when someone discovers a technique and teaches their peer.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-white border border-stone-200/90 shadow-sm hover:border-brand-300 transition">
+            <div class="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-700 font-semibold mb-3">3</div>
+            <h4 class="font-semibold text-stone-900 text-sm">To The Environment</h4>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Two-way Bronfenbrenner dynamic: if the fan is too loud, move it. If prep runs dry, refill the canal before asking.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Dispatch Protocol Matrix -->
+    <section id="dispatch" class="py-12 bg-white border-b border-stone-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Floor Protocol</span>
+            <h3 class="text-2xl font-serif text-stone-950 mt-1">When to Dispatch & Call Team Leads</h3>
+            <p class="text-sm text-stone-600 mt-1">Keep the kitchen activation moving smoothly without micromanaging trainees.</p>
+          </div>
+          <span class="text-xs font-mono text-stone-400 bg-stone-100 px-3 py-1.5 rounded-lg border border-stone-200">Protocol Ref: LWG-T2T-v26.4</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Call Harini Card -->
+          <div class="p-6 rounded-2xl bg-[#fbfdfa] border-2 border-emerald-200/70 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 transform translate-x-3 -translate-y-3 w-20 h-20 bg-emerald-100/50 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow">
+                H
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone-900 text-base">Come Get Harini</h4>
+                <p class="text-xs text-emerald-700 font-medium">Pedagogical Milestone & Teaching Handoff</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-emerald-100 mb-4">
+              <p class="text-sm font-medium text-stone-800">
+                Trigger: <span class="italic text-emerald-800">"When you see that someone has discovered a new skill and could show it to you or teach a peer."</span>
+              </p>
+            </div>
+            <ul class="text-xs text-stone-600 space-y-2.5">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                <span>Trainee figured out how parallel julienning maintains tension on the bench.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                <span>Trainee is ready to take the short presentation and transfer it to another peer.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-500 font-bold mt-0.5">✓</span>
+                <span>Celebration of self-indexing and independent milestone capture.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Call Elim Card -->
+          <div class="p-6 rounded-2xl bg-[#fffcf9] border-2 border-brand-200/80 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 transform translate-x-3 -translate-y-3 w-20 h-20 bg-brand-100/60 rounded-full blur-xl pointer-events-none"></div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-sm shadow">
+                E
+              </div>
+              <div>
+                <h4 class="font-semibold text-stone-900 text-base">Come Get Elim</h4>
+                <p class="text-xs text-brand-800 font-medium">Environment Architecture, Refills & Sensory Gaps</p>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-white border border-brand-100 mb-4">
+              <p class="text-sm font-medium text-stone-800">
+                Trigger: <span class="italic text-brand-900">"When you notice the environment has a gap, a sensory friction point, a missing station reset, or a refill need."</span>
+              </p>
+            </div>
+            <ul class="text-xs text-stone-600 space-y-2.5">
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600 font-bold mt-0.5">✓</span>
+                <span>Station 1 running low on prepped mise-en-place bowls or towel drops.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600 font-bold mt-0.5">✓</span>
+                <span>Sensory overload identified (fan acoustics, traffic bottlenecks between 2 & 3).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-brand-600 font-bold mt-0.5">✓</span>
+                <span>Emotional de-escalation / downward-arrowing support required.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modules & Curriculum Index -->
+    <section id="lessons" class="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Team Training Syllabus</span>
+          <h3 class="text-2xl sm:text-3xl font-serif text-stone-950 mt-1">Core Pedagogy & Environment Modules</h3>
+          <p class="text-sm text-stone-600 mt-1">Step through these interactive foundational modules before setting up the kitchen floor.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="filterModules('all')" id="btn-filter-all" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-900 text-white transition">All Modules</button>
+          <button onclick="filterModules('spatial')" id="btn-filter-spatial" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 transition">Spatial Flow</button>
+          <button onclick="filterModules('mindset')" id="btn-filter-mindset" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 transition">Mindset & Care</button>
+        </div>
+      </div>
+
+      <!-- Module Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modules-container">
+
+        <!-- Module 1: The 3-Station Model -->
+        <article class="module-card bg-white rounded-2xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="spatial">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-mono font-medium">Lesson 01 &middot; Spatial</span>
+              <span class="text-xs text-brand-700 font-semibold">Active Model</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">The 3-Station Deconstructed Model</h4>
+            <p class="text-xs text-stone-500 mt-1">Elim & Harini's parallel table layout</p>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+              Why watch one person cook when you can scrub through the process like an instructional video? We cook parallel recipes where order doesn't dictate entry:
+            </p>
+            <div class="mt-4 py-2 px-3 bg-stone-50 rounded-xl border border-stone-200 text-xs text-stone-700 space-y-1 font-mono">
+              <div class="flex items-center justify-between">
+                <span>Station A: Ingredient Prep</span>
+                <span class="text-stone-400">→</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Station B: Recipe Assembly</span>
+                <span class="text-stone-400">→</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Station C: The Hot Table</span>
+                <span class="text-emerald-600 font-bold">Activation</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">12 min read & exercise</span>
+            <button onclick="openLessonModal('lesson1')" class="text-xs font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
+              Read Lesson <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 2: The Two Parallel Recipes (Oct 13 Special) -->
+        <article class="module-card bg-brand-50/50 rounded-2xl border-2 border-brand-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="spatial">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-brand-200 text-brand-900 text-xs font-mono font-medium">Session Drill &middot; Oct 13th</span>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-brand-600 text-white font-semibold">Ready for Run</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">Two Parallel Recipes (October 13)</h4>
+            <p class="text-xs text-brand-800 mt-1">Live station setup for the two companion preparations</p>
+            <p class="text-sm text-stone-700 mt-3 leading-relaxed">
+              Detailed station layout, pacing timelines, ingredients, and isolation of tasks for the upcoming dual-recipe run. Check out the dedicated companion page.
+            </p>
+            <div class="mt-4 p-3 bg-white/80 rounded-xl border border-brand-200 text-xs text-stone-700">
+              <span class="font-medium text-stone-900">Includes:</span> Mise-en-place partitioning, transition triggers, and reset reserves.
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-brand-200/80 flex items-center justify-between">
+            <span class="text-xs text-stone-500">Linked HTML document</span>
+            <a href="parallel-recipes.html" class="px-3 py-1.5 rounded-lg bg-brand-700 hover:bg-brand-800 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition">
+              <span>View Oct 13 Recipes Page</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Module 3: Springer Academy & Anderson's Tenets -->
+        <article class="module-card bg-white rounded-2xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="mindset">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-mono font-medium">Lesson 02 &middot; Mindset</span>
+              <span class="text-xs text-amber-600 font-semibold">Elim's Foundations</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">Springer Academy & Ron Anderson's Wisdom</h4>
+            <p class="text-xs text-stone-500 mt-1">Generational investment & peer empowerment</p>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+              "Do your job well and treat people nicely." Incorporating the <strong>Three Breaths Principle</strong>, encouraging the joy of volunteering to assist the mission, and embracing that role models do not choose whether they become role models.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">8 min read</span>
+            <button onclick="openLessonModal('lesson2')" class="text-xs font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
+              Read Lesson <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 4: Trauma-Informed Care & Failure as Learning -->
+        <article class="module-card bg-white rounded-2xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="mindset">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-mono font-medium">Lesson 03 &middot; Care</span>
+              <span class="text-xs text-emerald-700 font-semibold">Care Philosophy</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">Trauma-Informed Care & Redefining Failure</h4>
+            <p class="text-xs text-stone-500 mt-1">Emotional regulation first & downward arrowing</p>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+              Failure means you are trying. Doing something for attention is functionally a cry for support. We practice <strong>Downward Arrowing</strong>: always ask "Why?" first rather than assuming motivation.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">10 min read & practice</span>
+            <button onclick="openLessonModal('lesson3')" class="text-xs font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
+              Read Lesson <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 5: Montessori Isolation & Prepared Environment -->
+        <article class="module-card bg-white rounded-2xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="spatial">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-mono font-medium">Lesson 04 &middot; Design</span>
+              <span class="text-xs text-purple-700 font-semibold">Montessori Applied</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">Isolation of Difficulty & Task Segmentation</h4>
+            <p class="text-xs text-stone-500 mt-1">Short presentations, 6x more independent work</p>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+              How can we set up the environment so that the next step surfaces intuitively? We isolate tasks so sensory overwhelm doesn't bottleneck knife work or heat management.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">15 min guide</span>
+            <button onclick="openLessonModal('lesson4')" class="text-xs font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
+              Read Lesson <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Module 6: Roles of Assistants (Tab 6 Protocol) -->
+        <article class="module-card bg-white rounded-2xl border border-stone-200 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between" data-category="mindset">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-1 rounded bg-stone-100 text-stone-700 text-xs font-mono font-medium">Lesson 05 &middot; Operations</span>
+              <span class="text-xs text-blue-700 font-semibold">Live Floor Playbook</span>
+            </div>
+            <h4 class="text-lg font-semibold text-stone-900">The 5 Core Roles of Kitchen Assistants</h4>
+            <p class="text-xs text-stone-500 mt-1">Guiding at transition points & observing reactions</p>
+            <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+              Initiating tasks, switching stations, preparing materials to silently reset the station, and observing reactions without hovering or lecturing.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between">
+            <span class="text-xs text-stone-500">7 min checklist</span>
+            <button onclick="openLessonModal('lesson5')" class="text-xs font-semibold text-brand-700 hover:text-brand-900 inline-flex items-center gap-1">
+              Read Lesson <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- The Red Lines / Retired Practices Guardrail Section -->
+    <section id="guardrails" class="py-14 bg-stone-100 border-y border-stone-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold uppercase tracking-wider">Crucial Pedagogical Boundary</span>
+          <h3 class="text-2xl sm:text-3xl font-serif text-stone-950 mt-2">What We Use vs. What We Have Retired</h3>
+          <p class="text-sm text-stone-600 mt-2">Do not generate or practice legacy systems from previous iterations. Our Fall 2026 iteration operates under full universal agency.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Active Current Column -->
+          <div class="bg-white rounded-2xl p-6 border-2 border-emerald-300 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 text-emerald-800 font-bold text-sm">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>CURRENT (Fall 2026 Iteration)</span>
+            </div>
+            <ul class="space-y-3.5 text-xs text-stone-700 leading-relaxed">
+              <li class="flex items-start gap-2.5">
+                <span class="font-bold text-emerald-600 mt-0.5">•</span>
+                <span><strong>Invention-first learning:</strong> Work through contrasting cases, test approaches, followed by a short presentation.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-bold text-emerald-600 mt-0.5">•</span>
+                <span><strong>Teaching another trainee:</strong> Teaching someone else is where internalizing the skill genuinely solidifies.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-bold text-emerald-600 mt-0.5">•</span>
+                <span><strong>Universal Positioning:</strong> Address "minority stress factors" universals rather than labeling trainees by deficits or diagnoses.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-bold text-emerald-600 mt-0.5">•</span>
+                <span><strong>Agency & Responsibility framing:</strong> "Our freedom is a responsibility to ourselves, others, and the environment."</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="font-bold text-emerald-600 mt-0.5">•</span>
+                <span><strong>Blank structure co-creation:</strong> Cohort picks their own colors, station labels, and charts on Day One.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Retired Red Lines Column -->
+          <div class="bg-white rounded-2xl p-6 border-2 border-red-300 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 text-red-800 font-bold text-sm">
+              <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>RETIRED / DO NOT USE</span>
+            </div>
+            <ul class="space-y-3.5 text-xs text-stone-600 leading-relaxed">
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>Watch → Try → Own (WTO):</strong> Retired completely. It was still fundamentally a top-down "tell-then-copy" model.</span>
+              </li>
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>Demo-First Sessions:</strong> The 45-minute chef demo is eliminated. We start directly in contrasting stations.</span>
+              </li>
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>Pre-built color zones:</strong> The legacy April Gray/Blue/Red zones are discontinued.</span>
+              </li>
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>Mastery Stickers & Skills Passports:</strong> Eliminated in favor of organic peer-teaching milestones.</span>
+              </li>
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>"You have the right to..." phrasing:</strong> Replaced with active agency & mutual responsibility.</span>
+              </li>
+              <li class="flex items-start gap-2.5 line-through text-stone-400">
+                <span class="font-bold text-red-500 mt-0.5">✕</span>
+                <span class="text-stone-700"><strong>"Peer helper / peer-pairing" language:</strong> We are the Environment Building Design Team.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-3">
+          <svg class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <p>
+            <strong>Note on legacy documentation:</strong> The April <a href="https://toobigsandbox.github.io/dinner" target="_blank" class="underline font-semibold text-amber-950">dinner.html</a> file is still valuable for <em>flow of service, sensory setup checklists, regulation zones, communication menus, and master labels</em>, but its pedagogical stage descriptions (WTO) must be disregarded.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Floor Assistant Checklist -->
+    <section class="py-12 bg-white border-b border-stone-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-stone-900 text-stone-100 rounded-3xl p-6 sm:p-8 shadow-xl">
+          <div class="max-w-3xl">
+            <span class="text-xs font-mono text-brand-300 uppercase tracking-widest">Tab 6 Practical Application</span>
+            <h3 class="text-xl sm:text-2xl font-serif text-white mt-1">Live Shift Assistant Checklist</h3>
+            <p class="text-xs sm:text-sm text-stone-400 mt-1">Tap each item during setup and live prep shifts to ensure the environment is holding the learning.</p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="checklist-items">
+            <!-- Checklist items rendered by JS -->
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-stone-800 flex items-center justify-between flex-wrap gap-3 text-xs text-stone-400">
+            <span id="checklist-counter">0 of 5 actions verified</span>
+            <button onclick="resetChecklist()" class="text-stone-300 hover:text-white underline">Reset Checklist</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Git Repository Directory Map -->
+    <section id="repo-tree" class="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Repository Architecture</span>
+          <h3 class="text-2xl font-serif text-stone-950 mt-1">GitHub Pages Repository Layout</h3>
+          <p class="text-sm text-stone-600 mt-1">File organization for ongoing training documents and recipe execution schedules.</p>
+        </div>
+        <div class="text-xs font-mono text-stone-500 bg-stone-100 px-3 py-1.5 rounded-lg border border-stone-200">
+          Branch: main / docs
+        </div>
+      </div>
+
+      <div class="bg-stone-900 rounded-2xl p-6 text-stone-300 font-mono text-xs overflow-x-auto shadow-sm">
+        <div class="flex items-center justify-between pb-3 border-b border-stone-800 text-stone-400 text-[11px]">
+          <span>Path</span>
+          <span>Status / Destination</span>
+        </div>
+        <div class="mt-3 space-y-2.5">
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">📄</span>
+              <span class="text-stone-100 font-semibold">index.html</span>
+              <span class="text-stone-500 text-[10px]">(this hub)</span>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[10px]">Active Root</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition bg-brand-900/20">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">📄</span>
+              <a href="parallel-recipes.html" class="text-brand-300 font-semibold underline hover:text-brand-200">parallel-recipes.html</a>
+              <span class="text-amber-400/80 text-[10px]">(Two Parallel Recipes - Oct 13)</span>
+            </div>
+            <a href="parallel-recipes.html" class="px-2 py-0.5 rounded bg-brand-900 text-amber-200 border border-brand-700 text-[10px] flex items-center gap-1">
+              <span>Open Document</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📁</span>
+              <span class="text-stone-300">lessons/</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Directory (Markdown & HTML)</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition pl-6">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📄</span>
+              <span class="text-stone-400">01-three-station-model.md</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Curriculum File</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition pl-6">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📄</span>
+              <span class="text-stone-400">02-springer-anderson-ethos.md</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Curriculum File</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition pl-6">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📄</span>
+              <span class="text-stone-400">03-trauma-informed-regulation.md</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Curriculum File</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition pl-6">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📄</span>
+              <span class="text-stone-400">04-montessori-isolation-tasks.md</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Curriculum File</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition pl-6">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📄</span>
+              <span class="text-stone-400">05-assistant-roles-tab6.md</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Curriculum File</span>
+          </div>
+
+          <div class="flex items-center justify-between hover:bg-stone-800/50 p-1.5 rounded transition">
+            <div class="flex items-center gap-2">
+              <span class="text-stone-400">📁</span>
+              <span class="text-stone-300">assets/</span>
+            </div>
+            <span class="text-stone-500 text-[10px]">Station diagrams, printable floor cards</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Discovery Prompts for Undergrads and Assistants -->
+    <section class="py-12 bg-amber-50/50 border-t border-stone-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 rounded-lg bg-brand-700 text-white flex items-center justify-center font-bold text-sm">?</div>
+          <div>
+            <h4 class="font-serif text-stone-900 text-xl font-medium">Daily Discovery & Debrief Prompts</h4>
+            <p class="text-xs text-stone-600">Prompts to close every shift with your undergrad cohorts</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="p-4 rounded-xl bg-white border border-stone-200 shadow-xs">
+            <p class="text-xs font-bold uppercase tracking-wider text-brand-700">Observation</p>
+            <p class="text-sm font-medium text-stone-800 mt-1">"What did you notice today?"</p>
+            <p class="text-xs text-stone-500 mt-2">Invites sensory and layout reflection without judgment.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-white border border-stone-200 shadow-xs">
+            <p class="text-xs font-bold uppercase tracking-wider text-emerald-700">Peer Solidification</p>
+            <p class="text-sm font-medium text-stone-800 mt-1">"What did you show someone else today?"</p>
+            <p class="text-xs text-stone-500 mt-2">Reinforces that teaching someone else is where true learning cements.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-white border border-stone-200 shadow-xs">
+            <p class="text-xs font-bold uppercase tracking-wider text-amber-700">Environmental Agency</p>
+            <p class="text-sm font-medium text-stone-800 mt-1">"What did you move or modify in the room?"</p>
+            <p class="text-xs text-stone-500 mt-2">Affirms that trainees design the environment, they do not just receive it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lesson Detail Modal -->
+  <div id="lessonModal" class="fixed inset-0 z-50 hidden bg-stone-950/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-stone-200">
+      <button onclick="closeLessonModal()" class="absolute top-5 right-5 p-2 rounded-full text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition" aria-label="Close modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div id="modalContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Search Modal -->
+  <div id="searchModal" class="fixed inset-0 z-50 hidden bg-stone-950/60 backdrop-blur-sm flex items-start justify-center pt-20 p-4" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-4 shadow-2xl border border-stone-200">
+      <div class="flex items-center gap-2 border-b border-stone-200 pb-3">
+        <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search tenets, roles, Springer, parallel recipes..." class="w-full text-sm outline-none text-stone-900 placeholder-stone-400 font-sans">
+        <button onclick="toggleQuickSearchModal(false)" class="text-xs text-stone-400 hover:text-stone-700 px-2 py-1 rounded bg-stone-100">ESC</button>
+      </div>
+      <div id="searchResults" class="mt-3 max-h-60 overflow-y-auto divide-y divide-stone-100 text-xs">
+        <p class="text-stone-400 p-3 text-center">Type any keyword to inspect modules and field guidance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-stone-950 text-stone-400 text-xs py-10 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded bg-brand-700 text-amber-200 font-bold flex items-center justify-center text-xs">T2T</div>
+        <div>
+          <p class="font-semibold text-stone-200">LWG Pedagogy &middot; Fall 2026 Iteration</p>
+          <p class="text-stone-500">Prepared Environment for Kitchen Cohort Learning</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="parallel-recipes.html" class="text-brand-300 hover:underline">Oct 13 Parallel Recipes</a>
+        <a href="#ethos" class="hover:text-stone-200 transition">Ethos</a>
+        <a href="#dispatch" class="hover:text-stone-200 transition">Dispatch</a>
+        <a href="#guardrails" class="hover:text-stone-200 transition">Guardrails</a>
+      </div>
+
+      <div class="text-stone-500 text-right">
+        <span>Hosted via Git Pages / Local Repository</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Checklist Data (Tab 6: Roles of Assistants)
+    const assistantChecklist = [
+      { id: 1, title: "Guiding at Transition Points", desc: "Positioned between stations to smoothly steer trainees without bottlenecking.", done: false },
+      { id: 2, title: "Initiating Tasks", desc: "Setting out clean tool tray and opening first step cue gently.", done: false },
+      { id: 3, title: "Switching Tasks", desc: "Facilitating movement across Ingredient Prep → Recipe Assembly → Hot Table.", done: false },
+      { id: 4, title: "Preparing Reset Materials", desc: "Quietly stocking backup prep bowls, towels, and measured spices for quick iteration.", done: false },
+      { id: 5, title: "Observing Reactions", desc: "Watching sensory body cues; downward-arrowing when resistance surfaces.", done: false }
+    ];
+
+    // Lesson Data Store
+    const lessonData = {
+      lesson1: {
+        tag: "Lesson 01 &middot; Spatial Flow",
+        title: "The 3-Station Model: Parallel Kitchen Activation",
+        content: `
+          <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+            <p class="font-serif text-base italic text-stone-900">
+              "What is so important about everyone watching one person cook? Why does everyone have to watch ONE person cook? If it doesn’t make sense for top-down teaching to happen in the kitchen, there is a reason for it."
+            </p>
+            <p>
+              When Elim and Harini moved the kitchen tables, they uncovered a vital principle: trainees learn best when they can <strong>scrub through the cooking process like an instructional video</strong>, having immediate multisensorial references right before their eyes.
+            </p>
+            <div class="p-4 rounded-xl bg-stone-50 border border-stone-200">
+              <h5 class="font-semibold text-stone-900 mb-2">The Three Centers:</h5>
+              <ol class="list-decimal list-inside space-y-1.5 text-xs text-stone-700">
+                <li><strong class="text-stone-900">Ingredient Prep:</strong> Knife work, peeling, portioning, tactile familiarity.</li>
+                <li><strong class="text-stone-900">Recipe Assembly:</strong> Combining, seasoning, measuring, timing relations.</li>
+                <li><strong class="text-stone-900">Hot Table:</strong> Thermal transfer, searing, simmering, plating activation.</li>
+              </ol>
+            </div>
+            <p>
+              <strong>Deconstruction & Parallel Cooking:</strong> Order doesn't matter. Cohorts can shuffle and move backwards through stations. This discourages individual sense of territorial ownership and cements an ensemble model of cohort learning from day one.
+            </p>
+          </div>
+        `
+      },
+      lesson2: {
+        tag: "Lesson 02 &middot; Mindset & Lineage",
+        title: "Springer Theatre Academy & Ron Anderson's Wisdom",
+        content: `
+          <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+            <p class="font-serif text-base italic text-stone-900">
+              "Do your job well and treat people nicely." — Ron Anderson, Columbus, Georgia
+            </p>
+            <p>
+              Elim pulls deeply from her theatre academy roots:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-xs text-stone-700">
+              <li><strong>The Three Breaths Principle:</strong> Before reacting or intervening when a station is in chaos, take three collective breaths. Pause the autonomic rush.</li>
+              <li><strong>Assisting the Mission:</strong> How to excite undergrads into volunteering by framing it as furthering the learning agenda, not doing busywork.</li>
+              <li><strong>Regenerative Cycle of Knowledge:</strong> Pouring into peers as an ongoing generational investment.</li>
+              <li><strong>Role Model Reality:</strong> As Harini noted: <em>"Role models don’t really get to choose whether or not they become role models."</em> Your habits are mirrored.</li>
+            </ul>
+          </div>
+        `
+      },
+      lesson3: {
+        tag: "Lesson 03 &middot; Care & Regulation",
+        title: "Trauma-Informed Care & Redefining Failure",
+        content: `
+          <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+            <h5 class="font-semibold text-stone-900">1. Failure is an Attempt to Learn</h5>
+            <p>
+              Failure is an option, and failure means you're trying. When an undergrad burns a reduction or miscuts a mirepoix, it is not an error—it is real-time sensory data.
+            </p>
+            <h5 class="font-semibold text-stone-900">2. Attention is a Cry for Help</h5>
+            <p>
+              Nobody ever does anything for no reason. Because doing something for "no reason" IS the reason to unpack. Where are you in your life that you’re feeling unanchored?
+            </p>
+            <h5 class="font-semibold text-stone-900">3. Downward Arrowing</h5>
+            <p>
+              Never assume you know why someone is doing something. There are always unseen barriers you didn't experience. Always ask "Why?" with unconditional positive regard.
+            </p>
+          </div>
+        `
+      },
+      lesson4: {
+        tag: "Lesson 04 &middot; Prepared Environment",
+        title: "Montessori Tenets: Isolation of Difficulty & Tasks",
+        content: `
+          <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+            <p>
+              In Montessori, <strong>isolation of difficulty</strong> isolates the cognitive struggle. In our kitchen, this manifests as <strong>isolation of tasks</strong>: certain equipment and physical demands exist exclusively at certain stations.
+            </p>
+            <div class="p-3 bg-stone-50 rounded-lg text-xs space-y-1.5 border border-stone-200">
+              <p>• <strong>Short Presentations:</strong> Keep verbal briefings brief. Trainees need 6x more independent hands-on work than demonstration time.</p>
+              <p>• <strong>Intuitive Progression:</strong> How can we set up the bench so that the next step surfaces intuitively to the hand?</p>
+              <p>• <strong>Sensory Agency:</strong> "If the fan's too loud, you move it." Trainees have agency to reshape the space dynamically.</p>
+            </div>
+          </div>
+        `
+      },
+      lesson5: {
+        tag: "Lesson 05 &middot; Field Operations",
+        title: "Roles of the Environment Assistant (Tab 6 Playbook)",
+        content: `
+          <div class="space-y-4 text-stone-700 text-sm leading-relaxed">
+            <p>
+              As environment team members, your stance is supportive, silent, and observant. Your 5 responsibilities:
+            </p>
+            <ol class="list-decimal list-inside space-y-2 text-xs text-stone-700">
+              <li><strong>Guiding at Transition Points:</strong> Be the quiet landmark when trainees rotate stations.</li>
+              <li><strong>Initiating Tasks:</strong> Make the barrier to entry zero by staging equipment.</li>
+              <li><strong>Switching Tasks:</strong> Offer smooth exits from stations before frustration mounts.</li>
+              <li><strong>Preparing Enough Materials to Reset:</strong> Keep backup trays full so the previous lesson resets immediately for the next trainee.</li>
+              <li><strong>Observing Student Reactions:</strong> Watch tension in the shoulders, grip on the knives, and breath rate.</li>
+            </ol>
+          </div>
+        `
+      }
+    };
+
+    // Render Checklist
+    function renderChecklist() {
+      const container = document.getElementById('checklist-items');
+      container.innerHTML = assistantChecklist.map(item => `
+        <div onclick="toggleChecklistItem(${item.id})" class="cursor-pointer p-3.5 rounded-xl border ${item.done ? 'bg-emerald-950/40 border-emerald-500/80 text-emerald-200' : 'bg-stone-800/80 border-stone-700 text-stone-300'} transition hover:border-brand-400">
+          <div class="flex items-start gap-3">
+            <div class="w-5 h-5 rounded mt-0.5 flex items-center justify-center border ${item.done ? 'bg-emerald-500 border-emerald-500 text-stone-950 font-bold' : 'border-stone-500'}">
+              ${item.done ? '✓' : ''}
+            </div>
+            <div>
+              <h5 class="text-xs font-semibold ${item.done ? 'text-white' : 'text-stone-200'}">${item.title}</h5>
+              <p class="text-[11px] text-stone-400 mt-1 leading-snug">${item.desc}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      const count = assistantChecklist.filter(i => i.done).length;
+      document.getElementById('checklist-counter').innerText = `${count} of ${assistantChecklist.length} actions verified`;
+    }
+
+    function toggleChecklistItem(id) {
+      const item = assistantChecklist.find(i => i.id === id);
+      if (item) item.done = !item.done;
+      renderChecklist();
+    }
+
+    function resetChecklist() {
+      assistantChecklist.forEach(i => i.done = false);
+      renderChecklist();
+    }
+
+    // Modal Handlers
+    function openLessonModal(lessonKey) {
+      const data = lessonData[lessonKey];
+      if (!data) return;
+
+      const modalContent = document.getElementById('modalContent');
+      modalContent.innerHTML = `
+        <span class="text-xs font-mono font-medium text-brand-700">${data.tag}</span>
+        <h3 class="text-2xl font-serif text-stone-900 mt-1 mb-4">${data.title}</h3>
+        ${data.content}
+        <div class="mt-8 pt-4 border-t border-stone-200 flex justify-end">
+          <button onclick="closeLessonModal()" class="px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-medium transition">
+            Understood & Close
+          </button>
+        </div>
+      `;
+
+      document.getElementById('lessonModal').classList.remove('hidden');
+    }
+
+    function closeLessonModal() {
+      document.getElementById('lessonModal').classList.add('hidden');
+    }
+
+    // Search Modal Handlers
+    function toggleQuickSearchModal(show) {
+      const modal = document.getElementById('searchModal');
+      if (show) {
+        modal.classList.remove('hidden');
+        document.getElementById('searchInput').focus();
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Search Logic
+    const searchableIndex = [
+      { title: "The 3-Station Model", category: "Spatial", key: "lesson1", text: "parallel cooking scrubbing video ingredient prep recipe assembly hot table" },
+      { title: "Two Parallel Recipes (Oct 13)", category: "Recipe Execution", url: "parallel-recipes.html", text: "october 13 parallel recipes dual companion stations" },
+      { title: "Springer & Ron Anderson Wisdom", category: "Mindset", key: "lesson2", text: "ron anderson three breaths treating people nicely role model peer investment" },
+      { title: "Trauma-Informed Care", category: "Care", key: "lesson3", text: "downward arrowing failure is an option emotional regulation crying for help" },
+      { title: "Montessori & Isolation of Tasks", category: "Design", key: "lesson4", text: "short presentations 6x independent work fan too loud move it blank colors" },
+      { title: "Assistant Roles (Tab 6)", category: "Playbook", key: "lesson5", text: "transitions initiating switching tasks resetting materials observing reactions" },
+      { title: "Dispatch: Come Get Harini", category: "Protocol", text: "when someone discovers a new skill and can show it to you or teach a peer" },
+      { title: "Dispatch: Come Get Elim", category: "Protocol", text: "when environment has a gap refill sensory overload friction" }
+    ];
+
+    function handleSearch(term) {
+      const resultsContainer = document.getElementById('searchResults');
+      if (!term.trim()) {
+        resultsContainer.innerHTML = `<p class="text-stone-400 p-3 text-center">Type any keyword to inspect modules and field guidance.</p>`;
+        return;
+      }
+      const query = term.toLowerCase();
+      const filtered = searchableIndex.filter(item => 
+        item.title.toLowerCase().includes(query) || 
+        item.text.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `<p class="text-stone-500 p-3 text-center">No matching tenets or modules found for "${term}".</p>`;
+        return;
+      }
+
+      resultsContainer.innerHTML = filtered.map(item => `
+        <div class="p-2.5 hover:bg-stone-50 rounded flex items-center justify-between cursor-pointer" onclick="${item.url ? `window.location.href='${item.url}'` : item.key ? `openLessonFromSearch('${item.key}')` : `toggleQuickSearchModal(false)`}">
+          <div>
+            <span class="text-[10px] font-mono text-brand-700 uppercase">${item.category}</span>
+            <p class="font-medium text-stone-900">${item.title}</p>
+          </div>
+          <span class="text-[10px] text-stone-400">View →</span>
+        </div>
+      `).join('');
+    }
+
+    function openLessonFromSearch(key) {
+      toggleQuickSearchModal(false);
+      openLessonModal(key);
+    }
+
+    // Module Category Filter
+    function filterModules(category) {
+      const cards = document.querySelectorAll('.module-card');
+      const btnAll = document.getElementById('btn-filter-all');
+      const btnSpatial = document.getElementById('btn-filter-spatial');
+      const btnMindset = document.getElementById('btn-filter-mindset');
+
+      // Update button styles
+      [btnAll, btnSpatial, btnMindset].forEach(btn => {
+        btn.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-100 hover:bg-stone-200 text-stone-700 transition";
+      });
+
+      if (category === 'all') {
+        btnAll.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-900 text-white transition";
+        cards.forEach(card => card.classList.remove('hidden'));
+      } else {
+        if (category === 'spatial') btnSpatial.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-900 text-white transition";
+        if (category === 'mindset') btnMindset.className = "px-3 py-1.5 rounded-lg text-xs font-medium bg-stone-900 text-white transition";
+
+        cards.forEach(card => {
+          if (card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    // Keyboard listener for ESC to close modals
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLessonModal();
+        toggleQuickSearchModal(false);
+      }
+    });
+
+    // Initialize checklist on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderChecklist();
+    });
+  </script>
+</body>
+</html>
