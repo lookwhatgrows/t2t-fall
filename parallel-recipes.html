@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Culinary Training Guide: Dual Stovetop Masterclass</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tone.js for kitchen timer notifications -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            tomato: {
+              50: '#fff1f0',
+              100: '#ffe1de',
+              200: '#ffc8c2',
+              500: '#e53e3e',
+              600: '#c53030',
+              700: '#9b2c2c',
+              800: '#742a2a',
+              900: '#4c1d1d'
+            },
+            saffron: {
+              50: '#fffaf0',
+              100: '#feebc8',
+              400: '#ecc94b',
+              500: '#d69e2e',
+              600: '#b7791f',
+              700: '#975a16'
+            },
+            basil: {
+              50: '#f0fff4',
+              100: '#c6f6d5',
+              600: '#2f855a',
+              700: '#276749',
+              800: '#22543d'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    
+    .glass-panel {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.88; transform: scale(1.01); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col font-sans transition-colors duration-200">
+
+  <!-- Top Global Header -->
+  <header class="sticky top-0 z-40 bg-white/95 border-b border-stone-200 glass-panel shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-amber-600 flex items-center justify-center text-white shadow-md shadow-red-500/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-bold tracking-tight text-stone-900 font-serif">Recipes for Guide</h1>
+            <span class="text-xs bg-red-100 text-red-800 font-semibold px-2 py-0.5 rounded-full border border-red-200">ICC Cohort Edition</span>
+          </div>
+          <p class="text-xs text-stone-500">Inventing with Contrasting Cases • Parallel Tracks at Every Station • Same Basket</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats & Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Portion Multiplier Switch -->
+        <div class="bg-stone-100 p-1 rounded-xl flex items-center border border-stone-200 text-xs font-semibold">
+          <span class="px-2 text-stone-500 font-medium">Batch:</span>
+          <button id="batch-6-btn" onclick="setServingMode(6)" class="px-3 py-1 rounded-lg bg-white text-stone-900 shadow-sm transition-all font-bold">
+            Cohort (6)
+          </button>
+          <button id="batch-12-btn" onclick="setServingMode(12)" class="px-3 py-1 rounded-lg text-stone-600 hover:text-stone-900 transition-all font-medium">
+            Full (12)
+          </button>
+        </div>
+
+        <!-- Timer Modal Trigger -->
+        <button onclick="toggleTimerDrawer()" class="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-xl shadow-sm shadow-red-600/20 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span id="header-timer-label">Class Clock</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-stone-100">
+      <nav class="flex space-x-6 overflow-x-auto text-sm font-medium" id="main-tabs">
+        <button onclick="switchTab('flow')" id="tab-flow" class="tab-button py-2.5 px-1 border-b-2 border-red-600 text-red-700 font-semibold flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          Parallel Station Flow (Two Tracks)
+        </button>
+        <button onclick="switchTab('dual')" id="tab-dual" class="tab-button py-2.5 px-1 border-b-2 border-transparent text-stone-500 hover:text-stone-800 flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          Contrasting Cases Pedagogy (ICC Lab)
+        </button>
+        <button onclick="switchTab('recipes')" id="tab-recipes" class="tab-button py-2.5 px-1 border-b-2 border-transparent text-stone-500 hover:text-stone-800 flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          Interactive Recipes & Scaling
+        </button>
+        <button onclick="switchTab('haccp')" id="tab-haccp" class="tab-button py-2.5 px-1 border-b-2 border-transparent text-stone-500 hover:text-stone-800 flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Food Safety, Reheat & Family Meal
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Kitchen Class Timer Floating Drawer -->
+  <div id="timer-drawer" class="hidden fixed bottom-6 right-6 z-50 bg-stone-900 text-white rounded-2xl shadow-2xl p-5 border border-stone-700 w-80">
+    <div class="flex items-center justify-between pb-3 border-b border-stone-800 mb-3">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="text-sm font-semibold tracking-wide uppercase text-stone-300">Live Station Clock</span>
+      </div>
+      <button onclick="toggleTimerDrawer()" class="text-stone-400 hover:text-white text-lg font-bold leading-none">&times;</button>
+    </div>
+    <div class="text-center py-2">
+      <div id="live-clock-display" class="font-mono text-4xl font-extrabold tracking-wider text-amber-400">00:00</div>
+      <div id="live-stage-desc" class="text-xs text-stone-400 mt-1 font-medium">Stage 1: Veg Prep & Mise (0-20m)</div>
+    </div>
+    <div class="flex items-center justify-center gap-2 mt-4">
+      <button id="clock-start-btn" onclick="toggleClock()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold transition-all">Start</button>
+      <button onclick="resetClock()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 rounded-lg text-xs font-medium text-stone-300 transition-all">Reset</button>
+      <button onclick="jumpToNextStage()" class="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 rounded-lg text-xs font-medium text-amber-400 transition-all">+ Stage</button>
+    </div>
+  </div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- VIEW 1: CLASS FLOW & TIMELINE MATRIX -->
+    <section id="view-flow" class="space-y-6">
+      <!-- Header Banner with Key Rule -->
+      <div class="bg-gradient-to-r from-stone-900 via-stone-850 to-stone-900 text-white rounded-2xl p-6 sm:p-7 shadow-lg relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-44 h-44 bg-red-600/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-medium mb-3 border border-red-500/30">
+            <span>Pedagogical Model</span> • Inventing with Contrasting Cases (ICC)
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold font-serif tracking-tight text-white mb-2">Synchronized Dual-Track Station Matrix</h2>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            By running both recipes <strong class="text-amber-300">in parallel tracks at each station</strong>, students actively contrast knife work, spice activation, water management, and heat dynamics side-by-side. Comparing these two cases reveals the deep physical and chemical principles that govern stovetop cooking.
+          </p>
+        </div>
+
+        <!-- Quick Summary Station Tags -->
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-stone-800 text-xs">
+          <div class="bg-stone-800/80 p-2.5 rounded-xl border border-stone-700/60">
+            <span class="text-stone-400 font-mono">STATION 1 • VEG PREP</span>
+            <p class="font-semibold text-emerald-400 mt-0.5">Track A & Track B Knife Work</p>
+            <p class="text-stone-400 text-[11px]">Whole vs Halved • Strips vs Mince</p>
+          </div>
+          <div class="bg-stone-800/80 p-2.5 rounded-xl border border-stone-700/60">
+            <span class="text-stone-400 font-mono">STATION 2 • RECIPE PREP</span>
+            <p class="font-semibold text-sky-400 mt-0.5">Track A & Track B Mise Staging</p>
+            <p class="text-stone-400 text-[11px]">Emulsion kits vs Tadka tempering trays</p>
+          </div>
+          <div class="bg-stone-800/80 p-2.5 rounded-xl border border-stone-700/60">
+            <span class="text-stone-400 font-mono">STATION 3 • HOT TABLE</span>
+            <p class="font-semibold text-amber-400 mt-0.5">Track A & Track B Cook Tops</p>
+            <p class="text-stone-400 text-[11px]">High-heat blistering vs Low reduction</p>
+          </div>
+          <div class="bg-stone-800/80 p-2.5 rounded-xl border border-stone-700/60">
+            <span class="text-stone-400 font-mono">PEDAGOGICAL LEAD</span>
+            <p class="font-semibold text-purple-400 mt-0.5">Chef Synthesizer</p>
+            <p class="text-stone-400 text-[11px]">Facilitating contrast observations & 165°F probe</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Time Scrubber -->
+      <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-base font-bold text-stone-900">Station Matrix (Parallel Recipe Tracks)</h3>
+            <p class="text-xs text-stone-500">Observe how both recipes are prepped and cooked simultaneously at every workstation.</p>
+          </div>
+          <div class="flex items-center gap-1.5 bg-stone-100 p-1 rounded-xl text-xs">
+            <button onclick="selectTimeBlock(0)" id="tblock-btn-0" class="time-nav-btn px-2.5 py-1 rounded-lg bg-stone-900 text-white font-semibold">0-20m</button>
+            <button onclick="selectTimeBlock(1)" id="tblock-btn-1" class="time-nav-btn px-2.5 py-1 rounded-lg text-stone-600 hover:text-stone-900 font-medium">20-35m</button>
+            <button onclick="selectTimeBlock(2)" id="tblock-btn-2" class="time-nav-btn px-2.5 py-1 rounded-lg text-stone-600 hover:text-stone-900 font-medium">35-55m</button>
+            <button onclick="selectTimeBlock(3)" id="tblock-btn-3" class="time-nav-btn px-2.5 py-1 rounded-lg text-stone-600 hover:text-stone-900 font-medium">55-65m</button>
+            <button onclick="selectTimeBlock(4)" id="tblock-btn-4" class="time-nav-btn px-2.5 py-1 rounded-lg text-stone-600 hover:text-stone-900 font-medium">65m Meal</button>
+          </div>
+        </div>
+
+        <!-- Master Timeline Visual Bar -->
+        <div class="relative w-full h-3 bg-stone-100 rounded-full overflow-hidden mb-6 flex">
+          <div id="bar-seg-0" class="h-full bg-emerald-500 transition-all cursor-pointer" style="width: 30.7%" title="0 to 20m: Dual-Track Mise & Initial Heat" onclick="selectTimeBlock(0)"></div>
+          <div id="bar-seg-1" class="h-full bg-amber-500 transition-all cursor-pointer" style="width: 23%" title="20 to 35m: Thokku Simmer & Pasta Veg Hand-off" onclick="selectTimeBlock(1)"></div>
+          <div id="bar-seg-2" class="h-full bg-red-500 transition-all cursor-pointer" style="width: 30.7%" title="35 to 55m: High Heat Blister vs Low Reduction" onclick="selectTimeBlock(2)"></div>
+          <div id="bar-seg-3" class="h-full bg-purple-500 transition-all cursor-pointer" style="width: 15.6%" title="55 to 65m: Emulsion Toss vs Oil Split Finish" onclick="selectTimeBlock(3)"></div>
+        </div>
+
+        <!-- Matrix Cards for Stations with Dual Tracks -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5" id="station-cards-container">
+          <!-- Card 1: Veg Prep (Dual Track) -->
+          <div id="station-card-veg" class="rounded-xl p-4.5 border-2 border-emerald-200 bg-emerald-50/30 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-emerald-200/70 pb-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 uppercase tracking-wider">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Station 1: Veg Prep
+                </span>
+                <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800" id="veg-phase-tag">0 - 20 min</span>
+              </div>
+              
+              <!-- Track Comparison Columns -->
+              <div class="space-y-2.5">
+                <div class="p-2.5 rounded-lg bg-white/90 border border-red-200 shadow-2xs">
+                  <span class="text-[10px] font-bold text-red-700 uppercase tracking-wider block mb-1">Track A (Pasta Sauce)</span>
+                  <p id="veg-track-a" class="text-xs text-stone-800 leading-snug font-medium">Keep 2 lb cherry tomatoes whole. Slice 1 white onion into thin half-moons, slice sweet peppers into strips, thinly slice 5 garlic cloves.</p>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-white/90 border border-amber-300 shadow-2xs">
+                  <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wider block mb-1">Track B (Thokku)</span>
+                  <p id="veg-track-b" class="text-xs text-stone-800 leading-snug font-medium">Halve 2 lb cherry tomatoes using deli-lid trick. Mince 4 garlic cloves and ginger. Finely dice 1/2 cup sweet pepper.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ICC Pedagogy Prompt -->
+            <div class="mt-3 text-xs bg-emerald-100/70 p-2.5 rounded-lg border border-emerald-300 text-emerald-950">
+              <span class="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide text-emerald-900 mb-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Contrasting Case Inquiry:
+              </span>
+              <p id="veg-contrast-prompt" class="text-[11px] leading-relaxed">Why do we keep pasta tomatoes whole (to build internal steam pressure before blistering) while halving thokku tomatoes (to maximize surface area for slow moisture evaporation)?</p>
+            </div>
+          </div>
+
+          <!-- Card 2: Recipe Prep (Dual Track) -->
+          <div id="station-card-recipe" class="rounded-xl p-4.5 border-2 border-sky-200 bg-sky-50/30 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-sky-200/70 pb-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-800 uppercase tracking-wider">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Station 2: Recipe Prep
+                </span>
+                <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-sky-100 text-sky-800" id="recipe-phase-tag">0 - 20 min</span>
+              </div>
+              
+              <!-- Track Comparison Columns -->
+              <div class="space-y-2.5">
+                <div class="p-2.5 rounded-lg bg-white/90 border border-red-200 shadow-2xs">
+                  <span class="text-[10px] font-bold text-red-700 uppercase tracking-wider block mb-1">Track A (Pasta Sauce)</span>
+                  <p id="recipe-track-a" class="text-xs text-stone-800 leading-snug font-medium">Stage olive oil, 1 bay leaf, chili flakes, measured salt, reserved pasta water, butter, finishing red wine vinegar, and torn herbs.</p>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-white/90 border border-amber-300 shadow-2xs">
+                  <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wider block mb-1">Track B (Thokku)</span>
+                  <p id="recipe-track-b" class="text-xs text-stone-800 leading-snug font-medium">Build tempering tray: sesame oil, mustard seeds, cumin, urad dal, bay leaf, dried red chilies, curry leaves, hing. Cup ground spices and tamarind.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ICC Pedagogy Prompt -->
+            <div class="mt-3 text-xs bg-sky-100/70 p-2.5 rounded-lg border border-sky-300 text-sky-950">
+              <span class="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide text-sky-900 mb-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Contrasting Case Inquiry:
+              </span>
+              <p id="recipe-contrast-prompt" class="text-[11px] leading-relaxed">Contrast the fats and finishing acids: Track A uses butter + starch water to create an emulsion; Track B uses heavy gingelly oil to extract fat-soluble spice compounds and preserve shelf life.</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Hot Table (Dual Track) -->
+          <div id="station-card-hot" class="rounded-xl p-4.5 border-2 border-amber-200 bg-amber-50/30 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 border-b border-amber-200/70 pb-2">
+                <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 uppercase tracking-wider">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Station 3: Hot Table
+                </span>
+                <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800" id="hot-phase-tag">0 - 20 min</span>
+              </div>
+              
+              <!-- Track Comparison Columns -->
+              <div class="space-y-2.5">
+                <div class="p-2.5 rounded-lg bg-white/90 border border-red-200 shadow-2xs">
+                  <span class="text-[10px] font-bold text-red-700 uppercase tracking-wider block mb-1">Trainee B • Track A (Pasta Skillet)</span>
+                  <p id="hot-track-a" class="text-xs text-stone-800 leading-snug font-medium">Stage 12-inch wide skillet. Review high-heat protocol. Observe Trainee A's whole spice tempering.</p>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-white/90 border border-amber-300 shadow-2xs">
+                  <span class="text-[10px] font-bold text-amber-800 uppercase tracking-wider block mb-1">Trainee A • Track B (Thokku Saucepot)</span>
+                  <p id="hot-track-b" class="text-xs text-stone-800 leading-snug font-medium">Stage deep heavy saucepot. Heat gingelly oil, pop mustard, fry urad dal & curry leaves, add tomatoes, and establish the 40m gentle simmer.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ICC Pedagogy Prompt -->
+            <div class="mt-3 text-xs bg-amber-100/70 p-2.5 rounded-lg border border-amber-300 text-amber-950">
+              <span class="font-bold flex items-center gap-1 text-[11px] uppercase tracking-wide text-amber-900 mb-0.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Contrasting Case Inquiry:
+              </span>
+              <p id="hot-contrast-prompt" class="text-[11px] leading-relaxed">Why start Thokku at minute 20 while delaying pasta sauce until minute 35? Thokku relies on gradual cell wall collapse and evaporation; pasta sauce relies on flash Maillard blister and fresh aromatics.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Schedule Table with Parallel Tracks -->
+        <div class="mt-6 border border-stone-200 rounded-xl overflow-hidden">
+          <div class="bg-stone-50 px-4 py-2.5 border-b border-stone-200 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-stone-600">Dual-Track Progression Matrix (Station-by-Station)</span>
+            <span class="text-[11px] text-stone-400">Comparing Track A (Pasta) vs Track B (Thokku) in parallel</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-stone-700">
+              <thead class="bg-stone-100 text-stone-500 uppercase font-semibold border-b border-stone-200">
+                <tr>
+                  <th class="py-2.5 px-3 w-24">Time</th>
+                  <th class="py-2.5 px-3 w-1/3">Station 1: Veg Prep (Parallel Tracks)</th>
+                  <th class="py-2.5 px-3 w-1/3">Station 2: Recipe Prep (Parallel Tracks)</th>
+                  <th class="py-2.5 px-3">Station 3: Hot Table (Trainees A & B)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200 font-normal">
+                <tr id="row-0" class="hover:bg-amber-50/50 transition-colors cursor-pointer" onclick="selectTimeBlock(0)">
+                  <td class="py-3 px-3 font-bold text-stone-900 font-mono whitespace-nowrap">0 to 20 min</td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Halve onions, slice peppers & garlic.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Halve cherry tomatoes (deli-lid), mince garlic/ginger, fine dice peppers.
+                  </td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Portion olive oil, butter, chili flakes, vinegar.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Assemble tadka tempering tray, portion whole spices & tamarind.
+                  </td>
+                  <td class="py-3 px-3">
+                    <strong class="text-stone-900">Station Setup:</strong> Assign 12" skillet to Trainee B and heavy pot to Trainee A; calibrate thermometers and monitor prep flow.
+                  </td>
+                </tr>
+                <tr id="row-1" class="hover:bg-amber-50/50 transition-colors cursor-pointer" onclick="selectTimeBlock(1)">
+                  <td class="py-3 px-3 font-bold text-stone-900 font-mono whitespace-nowrap">20 to 35 min</td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Inspect whole cherry tomatoes for skin integrity.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Hand off halved tomatoes and minced aromatics to Hot Table.
+                  </td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Stage pasta starch water & al dente pasta.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Stage fenugreek, jaggery, and storage jars.
+                  </td>
+                  <td class="py-3 px-3">
+                    <strong class="text-amber-800">Trainee A [Track B]:</strong> Temper spices in gingelly oil (steps 1-4), add tomatoes, establish low reduction simmer.
+                  </td>
+                </tr>
+                <tr id="row-2" class="hover:bg-amber-50/50 transition-colors cursor-pointer" onclick="selectTimeBlock(2)">
+                  <td class="py-3 px-3 font-bold text-stone-900 font-mono whitespace-nowrap">35 to 55 min</td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Hand off sliced veg to Hot Table; wash prep tools.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Sanitize boards; slice bread for Thokku toast points.
+                  </td>
+                  <td class="py-3 px-3">
+                    <span class="font-semibold text-red-700">[Track A]</span> Hand off finishing herbs and vinegar.<br>
+                    <span class="font-semibold text-amber-800">[Track B]</span> Portion side tomato jam; prep comparative tasting trays.
+                  </td>
+                  <td class="py-3 px-3">
+                    <strong class="text-amber-800">Trainee A [Track B]:</strong> Monitor reduction (wet &rarr; watery &rarr; jam).<br>
+                    <strong class="text-red-700">Trainee B [Track A]:</strong> Soften aromatics, crank high heat, blister whole tomatoes (steps 1-4).
+                  </td>
+                </tr>
+                <tr id="row-3" class="hover:bg-amber-50/50 transition-colors cursor-pointer" onclick="selectTimeBlock(3)">
+                  <td class="py-3 px-3 font-bold text-stone-900 font-mono whitespace-nowrap">55 to 65 min</td>
+                  <td class="py-3 px-3">
+                    <strong class="text-emerald-800">Both Tracks:</strong> Assist setting family dining table; arrange side-by-side comparison spoons.
+                  </td>
+                  <td class="py-3 px-3">
+                    <strong class="text-sky-800">Both Tracks:</strong> Reheat Chef's premade batches to 165°F; log probe thermometer temperatures.
+                  </td>
+                  <td class="py-3 px-3">
+                    <strong class="text-amber-800">Trainee A [Track B]:</strong> Add tamarind + fenugreek; confirm oil split (steps 5-7).<br>
+                    <strong class="text-red-700">Trainee B [Track A]:</strong> Emulsify butter + pasta water, toss pasta & fold herbs (step 5-6).
+                  </td>
+                </tr>
+                <tr id="row-4" class="hover:bg-amber-50/50 transition-colors cursor-pointer bg-red-50/40" onclick="selectTimeBlock(4)">
+                  <td class="py-3 px-3 font-bold text-red-900 font-mono whitespace-nowrap">65 min</td>
+                  <td class="py-3 px-3 font-semibold text-red-800">Family Meal: Active Contrast Debrief</td>
+                  <td class="py-3 px-3 font-semibold text-red-800">Family Meal: Active Contrast Debrief</td>
+                  <td class="py-3 px-3 font-semibold text-red-800">Family Meal: Active Contrast Debrief</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Chef's Responsibilities Panel -->
+        <div class="mt-4 p-4 rounded-xl bg-stone-900 text-stone-200 border border-stone-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center font-bold text-white shrink-0">CHEF</span>
+            <div>
+              <span class="font-bold text-white">Lead Chef & Pedagogy Facilitator Role:</span>
+              <p class="text-stone-400 mt-0.5">Prompt student inquiry at each station • Maintain visual reference samples • Probe thermometer checks (165°F on reheats) • Lead comparative sensory debrief at minute 65</p>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 bg-purple-900/60 text-purple-300 border border-purple-700/50 rounded-lg whitespace-nowrap font-medium">Contrasting Cases Coach</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: CONSTRASTING CASES PEDAGOGY (ICC LAB) -->
+    <section id="view-dual" class="hidden space-y-6">
+      <!-- Comparative Archetype Banner -->
+      <div class="text-center max-w-3xl mx-auto py-2">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200">Pedagogical Framework</span>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mt-2">Inventing with Contrasting Cases (ICC)</h2>
+        <p class="text-stone-600 text-sm mt-2">
+          When students cook both recipes simultaneously from the same basket, surface similarities fall away to reveal the <strong class="text-stone-900">deep structural variables</strong> of heat, water activity, cutting geometry, and lipid emulsion.
+        </p>
+      </div>
+
+      <!-- Deep Structural Contrast Laboratory -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
+        <div class="flex items-center justify-between border-b border-stone-200 pb-3 mb-5">
+          <h3 class="text-base font-bold text-stone-900 flex items-center gap-2">
+            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            The 5 Deep Structural Contrasts (Comparative Matrix)
+          </h3>
+          <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium">Side-by-Side Analysis</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Contrast 1: Tomato Geometry -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:bg-stone-50 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono">1. Tomato Geometry & Moisture Control</span>
+              <span class="text-[11px] text-stone-500 italic">Structural Principle: Cell Wall Containment vs Surface Area</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-red-50/70 border border-red-200 rounded-lg">
+                <span class="font-bold text-red-800 block mb-1">Track A (Pasta Sauce): Whole Tomatoes</span>
+                <p class="text-stone-700">Taut skins trap steam inside until pressure builds. When placed on high heat in a single layer, the skin blisters and scorches before bursting, concentrating sugars without losing internal moisture.</p>
+              </div>
+              <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+                <span class="font-bold text-amber-800 block mb-1">Track B (Thokku): Halved Tomatoes</span>
+                <p class="text-stone-700">Halving exposes seeds and juice immediately to the pan. Maximum contact area allows water to boil off over 35-45 minutes, collapsing pectin into a thick, concentrated jam.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrast 2: Knife Work & Texture Role -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:bg-stone-50 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono">2. Knife Work & Aromatic Dispersion</span>
+              <span class="text-[11px] text-stone-500 italic">Structural Principle: Distinct Texture vs Homogeneous Base</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-red-50/70 border border-red-200 rounded-lg">
+                <span class="font-bold text-red-800 block mb-1">Track A (Pasta Sauce): Half-Moons, Strips & Thin Slices</span>
+                <p class="text-stone-700">Onions and peppers retain identifiable shape to provide toothsome texture alongside pasta strands. Thin garlic slivers brown gently without dissolving completely.</p>
+              </div>
+              <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+                <span class="font-bold text-amber-800 block mb-1">Track B (Thokku): Fine Dice & Micro-Mince</span>
+                <p class="text-stone-700">Minced garlic/ginger and 1/2-cup micro-diced pepper break down entirely during the long reduction, dissolving into the background matrix so the condiment is smooth and spreadable.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrast 3: Lipid Physics & Emulsion -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:bg-stone-50 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono">3. Fat Mechanism & Starch Binding</span>
+              <span class="text-[11px] text-stone-500 italic">Structural Principle: Water-in-Fat Emulsion vs Oil-Soluble Phase Split</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-red-50/70 border border-red-200 rounded-lg">
+                <span class="font-bold text-red-800 block mb-1">Track A (Pasta Sauce): Butter + Starchy Water Emulsion</span>
+                <p class="text-stone-700">Butter fat is forced into water with gelatinized pasta starches through rapid tossing. Forms a glossy, clinging mantle that binds the al dente noodles without greasy residue.</p>
+              </div>
+              <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+                <span class="font-bold text-amber-800 block mb-1">Track B (Thokku): Gingelly Oil Separation (Tadka)</span>
+                <p class="text-stone-700">Heavy sesame oil blooms spice compounds at 350°F. When water completely evaporates, oil rejects the tomato solids and separates around the perimeter—the universal visual cue for completion and shelf stability.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrast 4: Thermal Application & Cook Duration -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:bg-stone-50 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono">4. Thermal Dynamics & Cook Time</span>
+              <span class="text-[11px] text-stone-500 italic">Structural Principle: Flash Conduction (20m) vs Convective Reduction (45m)</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-red-50/70 border border-red-200 rounded-lg">
+                <span class="font-bold text-red-800 block mb-1">Track A (Pasta Sauce): High & Fast (~20 Minutes)</span>
+                <p class="text-stone-700">Rapid blistering preserves fresh, vibrant acidity and bright fruit notes. A single layer prevents pan crowding so water evaporates instantly rather than steaming.</p>
+              </div>
+              <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+                <span class="font-bold text-amber-800 block mb-1">Track B (Thokku): Low & Slow (35 to 45 Minutes)</span>
+                <p class="text-stone-700">Gentle bubbling breaks down sugars, caramelizes tomato paste, and matures pungent spices into a mellow, savory, concentrated relish with complex depth.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contrast 5: Acid Balance & Herbal Volatiles -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50/60 hover:bg-stone-50 transition-all">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 font-mono">5. Acid Profile & Volatile Preservation</span>
+              <span class="text-[11px] text-stone-500 italic">Structural Principle: Off-Heat Flash Acid vs Heat-Stable Cooked Sourness</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-red-50/70 border border-red-200 rounded-lg">
+                <span class="font-bold text-red-800 block mb-1">Track A (Pasta Sauce): Off-Heat Vinegar & Fresh Basil/Parsley</span>
+                <p class="text-stone-700">Delicate herbal terpenes and acetic acid evaporate in extreme heat. Added strictly off-heat so brightness cuts through the rich butter emulsion.</p>
+              </div>
+              <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-lg">
+                <span class="font-bold text-amber-800 block mb-1">Track B (Thokku): Cooked Tamarind Paste & Fenugreek</span>
+                <p class="text-stone-700">Tartaric acid in tamarind requires 5 minutes of direct cooking to mellow harsh astringency, integrate with fenugreek bitterness, and seal in the spiced oil barrier.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: INTERACTIVE RECIPES & SCALING -->
+    <section id="view-recipes" class="hidden space-y-6">
+      
+      <!-- Controls Bar -->
+      <div class="bg-white rounded-2xl p-4 border border-stone-200 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold uppercase text-stone-500">Active View:</span>
+          <div class="inline-flex rounded-xl bg-stone-100 p-1 text-xs font-medium">
+            <button onclick="toggleRecipeSubTab('pasta')" id="subtab-pasta-btn" class="px-3 py-1.5 rounded-lg bg-white shadow-xs text-red-700 font-bold transition-all">
+              Pan-Blistered Pasta Sauce
+            </button>
+            <button onclick="toggleRecipeSubTab('thokku')" id="subtab-thokku-btn" class="px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 font-medium transition-all">
+              Cherry Tomato Thokku
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-stone-500 font-medium">Scale Calculator:</span>
+          <span id="current-scale-badge" class="px-2.5 py-1 bg-red-100 text-red-800 rounded-lg font-bold">6 Servings (Cohort)</span>
+          <button onclick="toggleServingMode()" class="px-3 py-1 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-50 font-medium transition-all">
+            Toggle 6 / 12
+          </button>
+        </div>
+      </div>
+
+      <!-- RECIPE CARD 1: PASTA SAUCE -->
+      <div id="recipe-block-pasta" class="bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-stone-100 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-red-100 text-red-800 text-xs font-bold rounded">Hot & Fast</span>
+              <span class="text-xs text-stone-500">~20 min cook time</span>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 mt-1">Pan-Blistered Cherry Tomato Pasta Sauce</h3>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-stone-500 block">Equipment</span>
+            <span class="text-sm font-semibold text-stone-800">12-Inch Heavy Skillet</span>
+          </div>
+        </div>
+
+        <!-- Ingredients Matrix -->
+        <div class="p-6 bg-stone-50/50 border-b border-stone-200">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">Mise en Place Checklist</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="pasta-ingredients-list">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+          <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-2">
+            <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <div>
+              <strong class="font-bold">Critical Scaling Note:</strong> Do not double this in one 12-inch skillet. The tomatoes need a single layer contact to blister. If cooking for 12, run two separate 6-serving skillets side-by-side or use the Chef's premade batch!
+            </div>
+          </div>
+        </div>
+
+        <!-- Method Steps Tracker -->
+        <div class="p-6">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-4">Cooking Execution Steps</h4>
+          <div class="space-y-3.5">
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 1: Soften Aromatics</strong>
+                Heat the olive oil in a 12-inch skillet over medium. Add the onion, peppers, and bay leaf with a pinch of salt and cook for 5 to 6 min, until soft and starting to turn golden at the edges.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 2: Bloom Garlic & Spice</strong>
+                Add the sliced garlic and chili flakes and cook for 1 min, until the garlic smells sweet but hasn't browned.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 3: High-Heat Single-Layer Blister</strong>
+                Turn the heat to high. Add the tomatoes in a single layer on top and leave them alone for 3 min, until the skins blister and a few split. Toss once.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 4: Burst & Season</strong>
+                Cover for 3 to 4 min so the tomatoes burst. Smash about half with the back of a spoon and add the rest of the salt.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 5: Emulsify Pasta & Sauce</strong>
+                Add the pasta water and butter and stir until glossy. Add the pasta (precooked 1 min under al dente) and toss for 1 to 2 min.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-red-600 focus:ring-red-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 6: Off-Heat Acid & Herbs</strong>
+                Off the heat, take out the bay leaf, add the vinegar or lemon juice, taste for salt, and fold in the fresh herbs (basil and parsley).
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECIPE CARD 2: THOKKU -->
+      <div id="recipe-block-thokku" class="hidden bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-stone-100 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 bg-amber-100 text-amber-800 text-xs font-bold rounded">Low & Slow</span>
+              <span class="text-xs text-stone-500">35 to 45 min cook time • Makes ~2 cups per 6-serving batch</span>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-stone-900 mt-1">Cherry Tomato Thokku</h3>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-stone-500 block">Equipment</span>
+            <span class="text-sm font-semibold text-stone-800">Heavy-Bottom Saucepot</span>
+          </div>
+        </div>
+
+        <!-- Ingredients Matrix -->
+        <div class="p-6 bg-stone-50/50 border-b border-stone-200">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3">Mise en Place Checklist</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs" id="thokku-ingredients-list">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Method Steps Tracker -->
+        <div class="p-6">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500 mb-4">Cooking Execution Steps</h4>
+          <div class="space-y-3.5">
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 1: Temper Seeds & Whole Spices (Tadka)</strong>
+                Heat the sesame oil over medium. Add the mustard seeds and wait for them to pop. Then add cumin, urad dal, bay leaf, and red chilies; stir until dal turns golden (~30 sec).
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 2: Curry Leaves & Hing</strong>
+                Add the curry leaves and hing. They'll spatter, so stand back and let the aromatics bloom in hot fat.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 3: Aromatics & Pepper Dice</strong>
+                Add the minced garlic, minced ginger, and diced sweet pepper; cook for 2 to 3 min until fragrant and soft.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 4: Tomatoes & Ground Spices</strong>
+                Add halved tomatoes, turmeric, Kashmiri chili powder, and salt. Raise the heat until it bubbles, then immediately drop to low.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 5: The 30-40 Minute Reduction</strong>
+                Cook for 30 to 40 min, stirring every few minutes and scraping the bottom. Watch texture progress: <span class="font-bold text-amber-700">Wet &rarr; Broken down & watery &rarr; Thick & jammy</span>.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 6: Tamarind & Oil Separation</strong>
+                Stir in the tamarind paste and roasted fenugreek leaves; cook for 5 more min, until the spiced oil visibly separates at the pan edges.
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-all cursor-pointer">
+              <input type="checkbox" class="step-check mt-1 w-4 h-4 rounded text-amber-600 focus:ring-amber-500">
+              <div class="text-xs leading-relaxed">
+                <strong class="text-stone-900 font-semibold block text-sm">Step 7: Balance & Finish</strong>
+                Taste for acid and salt balance. Add jaggery only if too sharp. Discard the bay leaf before serving.
+              </div>
+            </label>
+          </div>
+
+          <div class="mt-5 p-3.5 bg-stone-100 rounded-xl border border-stone-200 text-xs text-stone-700">
+            <span class="font-bold text-stone-900">Storage note:</span> Keeps about a week in the fridge with a protective layer of oil poured on top.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- VIEW 4: FOOD SAFETY, REHEAT & FAMILY MEAL -->
+    <section id="view-haccp" class="hidden space-y-6">
+      
+      <!-- Critical Food Safety Protocol -->
+      <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold font-serif text-stone-900">Premade Batch Protocols & 2-Stage Cooling</h3>
+            <p class="text-xs text-stone-500">Cooked 1 to 2 days prior to class • Samples pulled for visual guide</p>
+          </div>
+        </div>
+
+        <!-- 2-Stage Cooling Chart -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase text-blue-800">Stage 1 Cooling</span>
+              <span class="text-xs font-mono font-bold bg-blue-200/60 text-blue-900 px-2 py-0.5 rounded">Within 2 Hours</span>
+            </div>
+            <div class="text-2xl font-black text-blue-900 mt-2">135°F &rarr; 70°F</div>
+            <p class="text-xs text-blue-700 mt-1">Spread in shallow containers (max 2 inches deep) to release heat rapidly through the dangerous bacteria growth zone.</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase text-indigo-800">Stage 2 Cooling</span>
+              <span class="text-xs font-mono font-bold bg-indigo-200/60 text-indigo-900 px-2 py-0.5 rounded">Next 4 Hours</span>
+            </div>
+            <div class="text-2xl font-black text-indigo-900 mt-2">70°F &rarr; 41°F</div>
+            <p class="text-xs text-indigo-700 mt-1">Label, date, and refrigerate. Refrigerate the cooked pasta (lightly oiled) and 1 quart of reserved pasta water separately.</p>
+          </div>
+        </div>
+
+        <!-- Interactive Probe Thermometer Sim -->
+        <div class="mt-6 bg-stone-900 text-white rounded-xl p-5 border border-stone-800">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-800">
+            <div>
+              <span class="text-xs font-mono text-amber-400 uppercase tracking-widest font-semibold">Food Safety Lesson Checkpoint</span>
+              <h4 class="text-base font-bold text-white mt-0.5">Trainee Probe Thermometer Simulator</h4>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-stone-400">Target:</span>
+              <span class="text-xs font-bold bg-red-600/80 px-2.5 py-1 rounded-md text-white font-mono">165°F (74°C) Internal</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700 text-center">
+              <span class="text-xs text-stone-400">Premade Thokku Pot</span>
+              <div class="font-mono text-2xl font-bold my-1 text-emerald-400" id="temp-thokku-val">168°F</div>
+              <span class="text-[11px] text-emerald-300 font-medium">✓ Safe for Service</span>
+              <p class="text-[11px] text-stone-400 mt-2">Small pot on low with 1-2 tbsp water, stirred 5-8 min.</p>
+            </div>
+
+            <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700 text-center">
+              <span class="text-xs text-stone-400">Premade Blistered Sauce</span>
+              <div class="font-mono text-2xl font-bold my-1 text-emerald-400" id="temp-pasta-val">166°F</div>
+              <span class="text-[11px] text-emerald-300 font-medium">✓ Simmer Reached</span>
+              <p class="text-[11px] text-stone-400 mt-2">Skillet on medium with splash of pasta water.</p>
+            </div>
+
+            <div class="bg-stone-800 p-3.5 rounded-xl border border-stone-700 text-center">
+              <span class="text-xs text-stone-400">Reheat Rule</span>
+              <div class="font-mono text-lg font-bold my-1 text-amber-400">Reheat ONCE Only</div>
+              <span class="text-[11px] text-amber-200 font-medium">Zero Re-chilling</span>
+              <p class="text-[11px] text-stone-400 mt-2">Discard reheated leftovers; never chill a second time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Family Meal Plating & Tasting Guide -->
+      <div class="bg-white rounded-2xl p-6 border border-stone-200 shadow-sm">
+        <h3 class="text-xl font-bold font-serif text-stone-900 mb-2">Family Meal Service & Comparative Tasting (65 min)</h3>
+        <p class="text-xs text-stone-600 mb-4">
+          Serve family style. Keep cohort batches and premade chef batches in separate, clearly labeled pans side-by-side so students can calibrate their sensory benchmarks.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Plate 1 -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50">
+            <h4 class="text-sm font-bold text-stone-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Pan-Blistered Pasta Presentation
+            </h4>
+            <ul class="text-xs text-stone-600 space-y-1.5 mt-2.5 list-disc pl-4">
+              <li>Toss 1 lb pasta into each pan (1 lb into cohort pan, 1 lb into chef pan).</li>
+              <li>Add reserved pasta water to emulsify starch with butter for 1-2 min until glossy.</li>
+              <li>Finish with torn basil, torn parsley, and vinegar/lemon fold.</li>
+              <li><strong>Tasting Note:</strong> Look for sweet burst acidity and blistered skin contrast against al dente bite.</li>
+            </ul>
+          </div>
+
+          <!-- Plate 2 -->
+          <div class="p-4 rounded-xl border border-stone-200 bg-stone-50">
+            <h4 class="text-sm font-bold text-stone-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Thokku Toast Presentation
+            </h4>
+            <ul class="text-xs text-stone-600 space-y-1.5 mt-2.5 list-disc pl-4">
+              <li>Serve thick thokku spooned onto bread toasted dry or with a dab of ghee.</li>
+              <li>Serve side portion of tomato jam.</li>
+              <li>Ensure bay leaves are completely removed prior to plating.</li>
+              <li><strong>Tasting Note:</strong> Compare oil separation, tamarind tanginess, and spice depth between the 2-day aged batch and fresh cohort pan.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+    // State variables
+    let servingMode = 6; // 6 or 12
+    let currentTimeStage = 0; // 0 to 4
+    let isClockRunning = false;
+    let clockSeconds = 0;
+    let clockInterval = null;
+
+    // Database of ingredients
+    const pastaIngredients = [
+      { name: "Olive oil", b6: "3 tbsp", b12: "6 tbsp" },
+      { name: "White onion, thin half-moons", b6: "1", b12: "2" },
+      { name: "Sweet peppers, thinly sliced", b6: "2 (about 1 cup)", b12: "4 (about 2 cups)" },
+      { name: "Bay leaf", b6: "1", b12: "2" },
+      { name: "Garlic cloves, thinly sliced", b6: "5", b12: "10" },
+      { name: "Chili flakes (optional)", b6: "1/4 tsp", b12: "1/2 tsp" },
+      { name: "Cherry tomatoes, whole", b6: "2 lb", b12: "4 lb" },
+      { name: "Salt, plus more to taste", b6: "1 tsp", b12: "2 tsp" },
+      { name: "Pasta water", b6: "1/2 cup", b12: "1 cup" },
+      { name: "Butter", b6: "1 tbsp", b12: "2 tbsp" },
+      { name: "Red wine vinegar / lemon", b6: "1 tsp", b12: "2 tsp" },
+      { name: "Basil and parsley, torn", b6: "1 handful", b12: "2 handfuls" },
+      { name: "Pasta (cooked 1m under al dente)", b6: "1 lb", b12: "2 lb" }
+    ];
+
+    const thokkuIngredients = [
+      { name: "Sesame (gingelly) oil", b6: "3 tbsp", b12: "6 tbsp" },
+      { name: "Mustard seeds", b6: "1 tsp", b12: "2 tsp" },
+      { name: "Cumin seeds", b6: "1/2 tsp", b12: "1 tsp" },
+      { name: "Urad dal (optional crunch)", b6: "1 tsp", b12: "2 tsp" },
+      { name: "Bay leaf", b6: "1", b12: "2" },
+      { name: "Dried red chilies", b6: "2", b12: "4" },
+      { name: "Curry leaves", b6: "1 sprig", b12: "2 sprigs" },
+      { name: "Hing (asafoetida)", b6: "1/4 tsp", b12: "1/2 tsp" },
+      { name: "Garlic cloves, minced", b6: "4", b12: "8" },
+      { name: "Ginger, minced", b6: "1 tbsp", b12: "2 tbsp" },
+      { name: "Sweet pepper, finely diced", b6: "1/2 cup", b12: "1 cup" },
+      { name: "Cherry tomatoes, halved", b6: "2 lb", b12: "4 lb" },
+      { name: "Turmeric", b6: "1/2 tsp", b12: "1 tsp" },
+      { name: "Kashmiri chili powder", b6: "1 1/2 tsp", b12: "3 tsp" },
+      { name: "Salt", b6: "1 tsp", b12: "2 tsp" },
+      { name: "Tamarind paste", b6: "1 tbsp", b12: "2 tbsp" },
+      { name: "Roasted fenugreek leaves", b6: "1/2 tsp", b12: "1 tsp" },
+      { name: "Jaggery (only if needed)", b6: "1/2 tsp", b12: "1 tsp" }
+    ];
+
+    // Dual-track timeline schedule data for Inventing with Contrasting Cases (ICC)
+    const timelineData = [
+      {
+        timeRange: "0 - 20 min",
+        vegA: "Keep 2 lb cherry tomatoes whole. Slice 1 white onion into thin half-moons, slice sweet peppers into strips, thinly slice 5 garlic cloves.",
+        vegB: "Halve 2 lb cherry tomatoes using deli-lid trick. Mince 4 garlic cloves and ginger. Finely dice 1/2 cup sweet pepper.",
+        vegPrompt: "Why keep pasta tomatoes whole (to build internal steam pressure before blistering) while halving thokku tomatoes (to maximize surface area for slow moisture evaporation)?",
+
+        recipeA: "Stage olive oil, 1 bay leaf, chili flakes, measured salt, reserved pasta water, butter, finishing red wine vinegar, and torn herbs.",
+        recipeB: "Build tempering tray: sesame oil, mustard seeds, cumin, urad dal, bay leaf, dried red chilies, curry leaves, hing. Cup ground spices and tamarind.",
+        recipePrompt: "Contrast fats & finishing agents: Track A relies on butter + starch water to build an emulsion; Track B uses gingelly oil to extract fat-soluble spice compounds and preserve shelf life.",
+
+        hotA: "Stage 12-inch wide skillet. Review high-heat protocol. Observe Trainee A's whole spice tempering.",
+        hotB: "Stage deep heavy saucepot. Heat gingelly oil, pop mustard, fry urad dal & curry leaves, add tomatoes, and establish the 40m gentle simmer.",
+        hotPrompt: "Why start Thokku at minute 20 while delaying pasta sauce until minute 35? Thokku relies on gradual cell wall collapse and evaporation; pasta sauce relies on flash blister and fresh aromatics."
+      },
+      {
+        timeRange: "20 - 35 min",
+        vegA: "Inspect whole cherry tomatoes for skin integrity. Stage onions, peppers, and sliced garlic on prep plate.",
+        vegB: "Hand off halved tomatoes and minced aromatics to Hot Table for immediate pot entry. Sanitize knife station.",
+        vegPrompt: "Notice the difference in cutting geometry: thin half-moons retain structural bite for pasta, while minced aromatics dissolve into a velvety thokku sauce.",
+
+        recipeA: "Set up pasta sauce mise (bay, chili flakes, salt, butter, vinegar, herbs, starchy pasta water) on Hot Table runner.",
+        recipeB: "Confirm tamarind portion, measure roasted fenugreek leaves and jaggery; prep cooling trays for visual sample checks.",
+        recipePrompt: "How does the timing of spice addition differ? In Thokku, whole spices are fried first (tadka); in pasta sauce, garlic and chili flakes are briefly bloomed before tomatoes hit.",
+
+        hotA: "Stand by; observe Trainee A's tadka. Ensure skillet is ready for high-heat blister at minute 35.",
+        hotB: "Trainee A: temper spices, add curry leaves (stand back for spatter!), add aromatics, then tomatoes and ground spices. Drop to low once bubbling.",
+        hotPrompt: "Observe the bubbling phase: notice how halving the tomatoes releases immediate free moisture, preventing scorching as the ground spices dissolve into the pan."
+      },
+      {
+        timeRange: "35 - 55 min",
+        vegA: "Clean as you go: wash cutting boards, wipe workbenches, and sanitize tools.",
+        vegB: "Slice rustic bread into toast points; prep butter or ghee for skillet toasting.",
+        vegPrompt: "Contrasting pairings: Why is Thokku served as a spread on toasted bread while the blistered sauce is tossed with boiled noodles? (Condiment density vs meal coating).",
+
+        recipeA: "Stage fresh torn basil and parsley with measured red wine vinegar for off-heat finish.",
+        recipeB: "Portion side tomato jam; prep comparative tasting trays and spoons for the 65m family meal.",
+        recipePrompt: "Why does the herb and vinegar addition happen strictly OFF heat in pasta sauce, while tamarind in Thokku is simmered for 5 minutes? (Volatiles preservation vs acid mellowing).",
+
+        hotA: "Trainee B: heat oil in skillet, soften onions/peppers (5-6m), bloom garlic, then crank high heat and blister whole tomatoes undisturbed for 3m.",
+        hotB: "Trainee A: stir thokku every few minutes, scraping the bottom as it progresses: wet -> watery -> thick, rich jam.",
+        hotPrompt: "Visual comparison on the range: Look at the vigorous sizzling in the 12-inch skillet vs the slow, thick convective popping in the Thokku pot. What does this tell you about pan surface area and water loss?"
+      },
+      {
+        timeRange: "55 - 65 min",
+        vegA: "Help set the table with cutlery, napkins, and side-by-side comparative tasting ramekins.",
+        vegB: "Help set the table; arrange bread toast points alongside the tomato jam bowls.",
+        vegPrompt: "Compare textures: One dish celebrates intact tomato skins and juicy bursts; the other celebrates deep, homogenized caramelized pectin.",
+
+        recipeA: "With Chef, reheat the premade pasta sauce batch on medium with a splash of pasta water to 165°F.",
+        recipeB: "With Chef, reheat the premade Thokku batch in a small pot with 1-2 tbsp water to 165°F.",
+        recipePrompt: "Reheat physics: Why does both sauce and thokku require added water during reheat? (To replace water lost during cooling and prevent thermal scorching before reaching 165°F).",
+
+        hotA: "Trainee B: add pasta water + butter, emulsify until glossy, toss 1 lb pasta for 1-2 min, kill heat, add vinegar & fresh herbs.",
+        hotB: "Trainee A: stir in tamarind paste & roasted fenugreek leaves; cook 5 min until spiced oil visibly separates at edges. Discard bay leaf.",
+        hotPrompt: "The two endpoints: Track A reaches completion when water and fat bind together into a shiny emulsion. Track B reaches completion when oil separates from tomato solids."
+      },
+      {
+        timeRange: "65 min onwards",
+        vegA: "Family Meal: Join group for sensory tasting; record textural observations on comparison sheet.",
+        vegB: "Family Meal: Present toasted bread with thokku; evaluate sweetness/acidity balance.",
+        vegPrompt: "Comparative Case Analysis: Taste cohort's fresh batch side-by-side with Chef's 2-day aged batch. How did time and cooling affect spice bloom, acid sharpness, and emulsion stability?",
+
+        recipeA: "Family Meal: Serve cohort pasta pan alongside Chef's premade pasta pan for blind peer comparison.",
+        recipeB: "Family Meal: Serve cohort thokku alongside Chef's premade thokku; note oil ring integrity.",
+        recipePrompt: "How does aging impact oil separation? The rested Thokku often shows deeper harmonic spice integration because fat-soluble flavor compounds continue permeating into the oil.",
+
+        hotA: "Family Meal: Cut all range burners; probe reheated batches to verify 165°F safety threshold.",
+        hotB: "Family Meal: Turn off flame; ensure bay leaves were removed; present hot pans on trivets.",
+        hotPrompt: "Synthesis: We started with the same cherry tomatoes, peppers, garlic, and bay leaf. Summarize how heat, time, cut, and fat completely bifurcated their culinary identities."
+      }
+    ];
+
+    function switchTab(tabId) {
+      const views = ['flow', 'dual', 'recipes', 'haccp'];
+      views.forEach(v => {
+        document.getElementById(`view-${v}`).classList.add('hidden');
+        const tabBtn = document.getElementById(`tab-${v}`);
+        tabBtn.classList.remove('border-red-600', 'text-red-700', 'font-semibold');
+        tabBtn.classList.add('border-transparent', 'text-stone-500');
+      });
+
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
+      const activeTab = document.getElementById(`tab-${tabId}`);
+      activeTab.classList.remove('border-transparent', 'text-stone-500');
+      activeTab.classList.add('border-red-600', 'text-red-700', 'font-semibold');
+    }
+
+    function toggleRecipeSubTab(recipe) {
+      const pastaBlock = document.getElementById('recipe-block-pasta');
+      const thokkuBlock = document.getElementById('recipe-block-thokku');
+      const btnPasta = document.getElementById('subtab-pasta-btn');
+      const btnThokku = document.getElementById('subtab-thokku-btn');
+
+      if (recipe === 'pasta') {
+        pastaBlock.classList.remove('hidden');
+        thokkuBlock.classList.add('hidden');
+        btnPasta.className = "px-3 py-1.5 rounded-lg bg-white shadow-xs text-red-700 font-bold transition-all";
+        btnThokku.className = "px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 font-medium transition-all";
+      } else {
+        pastaBlock.classList.add('hidden');
+        thokkuBlock.classList.remove('hidden');
+        btnThokku.className = "px-3 py-1.5 rounded-lg bg-white shadow-xs text-amber-800 font-bold transition-all";
+        btnPasta.className = "px-3 py-1.5 rounded-lg text-stone-600 hover:text-stone-900 font-medium transition-all";
+      }
+    }
+
+    function setServingMode(mode) {
+      servingMode = mode;
+      const b6Btn = document.getElementById('batch-6-btn');
+      const b12Btn = document.getElementById('batch-12-btn');
+      const badge = document.getElementById('current-scale-badge');
+
+      if (mode === 6) {
+        b6Btn.className = "px-3 py-1 rounded-lg bg-white text-stone-900 shadow-sm transition-all font-bold";
+        b12Btn.className = "px-3 py-1 rounded-lg text-stone-600 hover:text-stone-900 transition-all font-medium";
+        badge.textContent = "6 Servings (Cohort)";
+        badge.className = "px-2.5 py-1 bg-red-100 text-red-800 rounded-lg font-bold";
+      } else {
+        b12Btn.className = "px-3 py-1 rounded-lg bg-white text-stone-900 shadow-sm transition-all font-bold";
+        b6Btn.className = "px-3 py-1 rounded-lg text-stone-600 hover:text-stone-900 transition-all font-medium";
+        badge.textContent = "12 Servings (Full)";
+        badge.className = "px-2.5 py-1 bg-amber-100 text-amber-900 rounded-lg font-bold";
+      }
+      renderIngredients();
+    }
+
+    function toggleServingMode() {
+      setServingMode(servingMode === 6 ? 12 : 6);
+    }
+
+    function renderIngredients() {
+      const pastaContainer = document.getElementById('pasta-ingredients-list');
+      const thokkuContainer = document.getElementById('thokku-ingredients-list');
+
+      pastaContainer.innerHTML = pastaIngredients.map(item => `
+        <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-stone-200">
+          <span class="text-stone-700">${item.name}</span>
+          <span class="font-mono font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-100 ml-2 whitespace-nowrap">
+            ${servingMode === 6 ? item.b6 : item.b12}
+          </span>
+        </div>
+      `).join('');
+
+      thokkuContainer.innerHTML = thokkuIngredients.map(item => `
+        <div class="flex items-center justify-between p-2.5 bg-white rounded-lg border border-stone-200">
+          <span class="text-stone-700">${item.name}</span>
+          <span class="font-mono font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-100 ml-2 whitespace-nowrap">
+            ${servingMode === 6 ? item.b6 : item.b12}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function selectTimeBlock(index) {
+      currentTimeStage = index;
+      const data = timelineData[index];
+
+      // Update button highlights
+      for (let i = 0; i < 5; i++) {
+        const btn = document.getElementById(`tblock-btn-${i}`);
+        const row = document.getElementById(`row-${i}`);
+        if (i === index) {
+          btn.className = "time-nav-btn px-2.5 py-1 rounded-lg bg-stone-900 text-white font-semibold shadow-xs";
+          if (row) row.classList.add('bg-amber-100/60', 'font-semibold');
+        } else {
+          btn.className = "time-nav-btn px-2.5 py-1 rounded-lg text-stone-600 hover:text-stone-900 font-medium";
+          if (row) row.classList.remove('bg-amber-100/60', 'font-semibold');
+        }
+      }
+
+      // Update Station 1 (Veg Prep)
+      document.getElementById('veg-phase-tag').textContent = data.timeRange;
+      document.getElementById('veg-track-a').textContent = data.vegA;
+      document.getElementById('veg-track-b').textContent = data.vegB;
+      document.getElementById('veg-contrast-prompt').textContent = data.vegPrompt;
+
+      // Update Station 2 (Recipe Prep)
+      document.getElementById('recipe-phase-tag').textContent = data.timeRange;
+      document.getElementById('recipe-track-a').textContent = data.recipeA;
+      document.getElementById('recipe-track-b').textContent = data.recipeB;
+      document.getElementById('recipe-contrast-prompt').textContent = data.recipePrompt;
+
+      // Update Station 3 (Hot Table)
+      document.getElementById('hot-phase-tag').textContent = data.timeRange;
+      document.getElementById('hot-track-a').textContent = data.hotA;
+      document.getElementById('hot-track-b').textContent = data.hotB;
+      document.getElementById('hot-contrast-prompt').textContent = data.hotPrompt;
+
+      // Card animation bump
+      const cards = ['station-card-veg', 'station-card-recipe', 'station-card-hot'];
+      cards.forEach(c => {
+        const el = document.getElementById(c);
+        if (el) {
+          el.classList.add('scale-[1.01]');
+          setTimeout(() => el.classList.remove('scale-[1.01]'), 200);
+        }
+      });
+    }
+
+    function playKitchenChime() {
+      try {
+        const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+        synth.volume.value = -6;
+        const now = Tone.now();
+        synth.triggerAttackRelease(["C5", "E5", "G5"], "8n", now);
+      } catch (e) {
+        console.log("Audio requires initial user interaction context");
+      }
+    }
+
+    function toggleTimerDrawer() {
+      const drawer = document.getElementById('timer-drawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function toggleClock() {
+      const btn = document.getElementById('clock-start-btn');
+      if (Tone && Tone.start) Tone.start();
+
+      if (!isClockRunning) {
+        isClockRunning = true;
+        btn.textContent = "Pause";
+        btn.className = "px-4 py-1.5 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs font-bold transition-all";
+        clockInterval = setInterval(() => {
+          clockSeconds += 1;
+          updateClockUI();
+        }, 1000);
+      } else {
+        isClockRunning = false;
+        btn.textContent = "Resume";
+        btn.className = "px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold transition-all";
+        clearInterval(clockInterval);
+      }
+    }
+
+    function resetClock() {
+      isClockRunning = false;
+      clearInterval(clockInterval);
+      clockSeconds = 0;
+      updateClockUI();
+      const btn = document.getElementById('clock-start-btn');
+      btn.textContent = "Start";
+      btn.className = "px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs font-bold transition-all";
+    }
+
+    function jumpToNextStage() {
+      currentTimeStage = (currentTimeStage + 1) % 5;
+      selectTimeBlock(currentTimeStage);
+      playKitchenChime();
+    }
+
+    function updateClockUI() {
+      const mins = Math.floor(clockSeconds / 60);
+      const secs = clockSeconds % 60;
+      const str = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      document.getElementById('live-clock-display').textContent = str;
+      document.getElementById('header-timer-label').textContent = str;
+
+      // Sync stage based on class minutes
+      if (mins < 20) {
+        if (currentTimeStage !== 0) selectTimeBlock(0);
+        document.getElementById('live-stage-desc').textContent = "Stage 1: Dual-Track Mise & Initial Heat (0-20m)";
+      } else if (mins < 35) {
+        if (currentTimeStage !== 1) selectTimeBlock(1);
+        document.getElementById('live-stage-desc').textContent = "Stage 2: Thokku Simmer & Pasta Veg Hand-off (20-35m)";
+      } else if (mins < 55) {
+        if (currentTimeStage !== 2) selectTimeBlock(2);
+        document.getElementById('live-stage-desc').textContent = "Stage 3: High-Heat Blister vs Low Reduction (35-55m)";
+      } else if (mins < 65) {
+        if (currentTimeStage !== 3) selectTimeBlock(3);
+        document.getElementById('live-stage-desc').textContent = "Stage 4: Emulsion Toss vs Oil Split Finish (55-65m)";
+      } else {
+        if (currentTimeStage !== 4) selectTimeBlock(4);
+        document.getElementById('live-stage-desc').textContent = "Family Meal & Active Contrast Debrief (65m+)";
+      }
+    }
+
+    // Initialize application on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderIngredients();
+      selectTimeBlock(0);
+    });
+  </script>
+</body>
+</html>
